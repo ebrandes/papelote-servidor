@@ -1,5 +1,5 @@
-module.exports = function(app,mongoose) {
-   var User = mongoose.model('Todo', {
-    text : String
+module.exports = function(app , mongoose) {
+   return mongoose.model('Users', {
+    name : String
 });
 }

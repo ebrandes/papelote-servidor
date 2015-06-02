@@ -1,11 +1,11 @@
-module.exports = function(app) {
+module.exports = function(app, Users) {
     // api ---------------------------------------------------------------------
     // get all todos
-    app.get('/users', function(req, res) {
+    app.get('/api/users', function(req, res) {
 
         // use mongoose to get all todos in the database
-        user.User.find(function(err, listUsers) {
-
+        Users.find(function(err, listUsers) {
+            console.log(listUsers);
             // if there is an error retrieving, send the error. nothing after res.send(err) will execute
             if (err)
                 res.send(err)
@@ -15,10 +15,10 @@ module.exports = function(app) {
     });
 
     // create todo and send back all todos after creation
-    app.post('/api/users', function(req, res) {
+    app.post('/api/user', function(req, res) {
 
         // create a todo, information comes from AJAX request from Angular
-        User.create({
+        Users.create({
             name: req.body.name,
             done: false
         }, function(err, listUsers) {
@@ -26,7 +26,7 @@ module.exports = function(app) {
                 res.send(err);
 
             // get and return all the todos after you create another
-            User.find(function(err, listUsers) {
+            Users.find(function(err, listUsers) {
                 if (err)
                     res.send(err)
                 res.json(listUsers);
@@ -36,15 +36,15 @@ module.exports = function(app) {
     });
 
     // delete a todo
-    app.delete('/api/users/:user_id', function(req, res) {
-        User.remove({
+    app.delete('/api/user/:user_id', function(req, res) {
+        Users.remove({
             _id: req.params.user_id
-        }, function(err, luser) {
+        }, function(err, listUsers) {
             if (err)
                 res.send(err);
 
             // get and return all the todos after you create another
-            User.find(function(err, listUsers) {
+            Users.find(function(err, listUsers) {
                 if (err)
                     res.send(err)
                 res.json(listUsers);
